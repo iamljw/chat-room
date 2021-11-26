@@ -39,7 +39,13 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       $(function () {
-        var socket = io();
+        var socket = io('/', {
+            query: {
+                uid: 998
+            },
+            timeout: 15000,
+            transports: ['websocket']
+        });
         socket.emit('uname', socket.id);
         $('form').submit(function(){
           socket.emit('chat message', $('#m').val());

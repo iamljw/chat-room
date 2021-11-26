@@ -1,6 +1,7 @@
 'use strict';
 module.exports = app => {
     return async (ctx, next) => {
+        console.log('conn..' + ctx.socket.id);
         let online_num = Object.keys(app.io.engine.clients).length;
         app.io.sockets.emit('online_num_change', online_num);
         const nickName = ctx.helper.genNickName();
@@ -12,5 +13,6 @@ module.exports = app => {
         app.io.sockets.emit('online_num_change', online_num);
         await app.redis.hdel('chat-uname', ctx.socket.id);
         app.io.sockets.emit('on/offline', `${nickName}离开了聊天室`);
+        console.log('disconn..' + ctx.socket.id);
     };
 };

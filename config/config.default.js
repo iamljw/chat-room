@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+// const uuid = require('uuid');
 
 module.exports = appInfo => {
     const config = exports = {};
@@ -29,8 +30,11 @@ module.exports = appInfo => {
         namespace: {
             '/': {
                 connectionMiddleware: ['auth'],
-                packetMiddleware: []
+                packetMiddleware: ['filter']
             }
+        },
+        generateId: request => {
+            return request._query.uid;
         }
     };
 
